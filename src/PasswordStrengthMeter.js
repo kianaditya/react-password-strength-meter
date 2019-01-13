@@ -6,13 +6,17 @@ export class PasswordStrengthMeter extends Component {
     const { password } = this.props;
     const testedResult = zxcvbn(password);
     return (
-      <div>
         <div className="password-strength-meter">
-          <label className="password-strength-meter-label">
-            {password} is your password and is a level {testedResult.score}{" "}
-            password
-          </label>
-        </div>
+        <progress
+          value={testedResult.score}
+          max="4"
+        />
+        <br />
+        <label
+          className="password-strength-meter-label"
+        >
+          {password}
+        </label>
       </div>
     );
   }
