@@ -2,6 +2,24 @@ import React, { Component } from "react";
 var zxcvbn = require("zxcvbn");
 
 export class PasswordStrengthMeter extends Component {
+
+  createPasswordLabel = (result) => {
+    switch (result.score) {
+      case 0:
+        return 'Non-existent';
+      case 1:
+        return 'Weak';
+      case 2:
+        return 'Fair';
+      case 3:
+        return 'Good';
+      case 4:
+        return 'Strong';
+      default:
+        return 'Weak';
+    }
+  }
+
   render() {
     const { password } = this.props;
     const testedResult = zxcvbn(password);
@@ -15,7 +33,11 @@ export class PasswordStrengthMeter extends Component {
         <label
           className="password-strength-meter-label"
         >
-          {password}
+          {password && (
+            <>
+              <strong>Password strength:</strong> {this.createPasswordLabel(testedResult)}
+            </>
+          )}
         </label>
       </div>
     );
